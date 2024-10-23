@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function encodeOrderId(str) {
+            if (str.length !== 10 || !/^[a-zA-Z0-9]{10}$/.test(str)) {
+            throw new Error('输入必须是10位长度的大小写字母和数字组合');
+            }
+            
+            return str.split('').map(char => {
+            let code;
+            if (char >= '0' && char <= '9') code = char.charCodeAt(0) - 48;
+            else if (char >= 'A' && char <= 'Z') code = char.charCodeAt(0) - 55;
+            else if (char >= 'a' && char <= 'z') code = char.charCodeAt(0) - 61;
+            return code.toString().padStart(2, '0');
+            }).join('');
+        }
+    </script>
+
+    <input type="text" id="encode">
+    <button onclick="document.getElementById('result').innerText = encodeOrderId(document.getElementById('encode').value)">encode</button>
+
+    <div id="result"></div>
+
+</body>
+</html>
